@@ -1,10 +1,9 @@
+#include <behaviors/mouse_keys.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
-
-// #include <dt-bindings/zmk/mouse.h>
 
 #define DEFAULT 0
 #define SCRLM 1
@@ -23,14 +22,14 @@
     };
   };
   behaviors {
-    ltm: layer-tap-momentary {
+    ltm: layer-tap-or-mouse {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
       flavor = "tap-preferred";
       tapping-term-ms = <200>;
       bindings = <&mo>, <&mkp>;
     };
-    lth: layer-tap-hold-while-undecided {
+    lhm: layer-tap-hold-or-mouse {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
       flavor = "hold-preferred";
@@ -38,7 +37,7 @@
       tapping-term-ms = <150>;
       bindings = <&mo>, <&mkp>;
     };
-    mto: momentary-or-toggle {
+    mto: momentary-and-toggle {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
       flavor = "hold-preferred";
@@ -50,45 +49,39 @@
   keymap {
     compatible = "zmk,keymap";
     default_layer {
-      display-name = "Default";
       bindings = <
-        &ltm BLTH MB4 &ltm DEVICE MB5 &mto SCRLM SNIPE &lhm SCRLM RCLK
+        &ltm SCRLM RCLK &ltm MCLK &mto SCRLM SNIPE &lhm SCRLM RCLK
         &mkp RCLK                                      &mkp LCLK
       >;
     };
     scroll_tap_layer {
-      display-name = "Scroll-Momentary";
       bindings = <
         &trans &trans &to SCRLH &trans
         &to SCRLH               &trans
       >;
     };
     scroll_hold_layer {
-      display-name = "Scroll-Keep";
       bindings = <
-        &trans &trans &trans &to DEFAULT
-        &trans               &to DEFAULT
+        &trans &trans  &to DEFAULT &to DEFAULT
+        &trans                    &to DEFAULT
       >;
     };
     device_layer {
-      display-name = "Device";
       bindings = <
         &bootloader &trans &trans &trans
         &trans                    &bt BT_CLR
       >;
     };
     bluetooth_layer {
-      display-name = "Bluetooth";
       bindings = <
         &trans &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2
         &bt BT_SEL 3                     &bt BT_SEL 4
       >;
     };
     snipe_layer {
-      display-name = "Snipe";
       bindings = <
-        &trans &trans &trans &lth SCRLM RCLK
-        &trans               &to DEFAULT
+        &trans &trans &to DEFAULT &lhm SCRLM RCLK
+        &mkp LCLK                 &lhm SCRLM MCLK
       >;
     };
   };
