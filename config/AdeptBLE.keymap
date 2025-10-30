@@ -51,7 +51,7 @@
     default_layer {
       bindings = <
         &ltm SCRLM RCLK &mkp MCLK  &mto SCRLM SNIPE &lhm SCRLM RCLK
-        &mkp RCLK                                      &mkp LCLK
+        &mkp LCLK                                      &mkp LCLK
       >;
     };
     scroll_tap_layer {
