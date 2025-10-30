@@ -50,7 +50,7 @@
     compatible = "zmk,keymap";
     default_layer {
       bindings = <
-        &ltm SCRLM RCLK &ltm MCLK &mto SCRLM SNIPE &lhm SCRLM RCLK
+        &ltm SCRLM RCLK &mkp MCLK  &mto SCRLM SNIPE &lhm SCRLM RCLK
         &mkp RCLK                                      &mkp LCLK
       >;
     };
